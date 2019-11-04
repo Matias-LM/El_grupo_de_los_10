@@ -1,190 +1,228 @@
-PixiJS — The HTML5 Creation Engine
-=============
+# Pong.js
 
-![pixi.js logo](https://pixijs.download/pixijs-banner-v5.png)
+> Configurable JavaScript Pong game in the browser.
+> Uses [Pixi.js](https://github.com/GoodBoyDigital/pixi.js) for rendering.
+> Available stand-alone or as npm module for [Browserify](http://browserify.org/)
 
-[![Inline docs](http://inch-ci.org/github/pixijs/pixi.js.svg?branch=dev)](http://inch-ci.org/github/pixijs/pixi.js)
-[![Build Status](https://travis-ci.org/pixijs/pixi.js.svg?branch=dev)](https://travis-ci.org/pixijs/pixi.js)
+**Current Version:** *0.0.9*
 
-The aim of this project is to provide a fast lightweight 2D library that works
-across all devices. The PixiJS renderer allows everyone to enjoy the power of
-hardware acceleration without prior knowledge of WebGL. Also, it's fast. Really fast.
+![Screenshot](http://oi39.tinypic.com/10hr1hf.jpg)
 
-If you want to keep up to date with the latest PixiJS news then feel free to follow us on twitter
-([@doormat23](https://twitter.com/doormat23), [@rolnaaba](https://twitter.com/rolnaaba), [@bigtimebuddy](https://twitter.com/bigtimebuddy), [@ivanpopelyshev](https://twitter.com/ivanpopelyshev))
-and we will keep you posted! You can also check back on [our site](http://www.pixijs.com)
-as any breakthroughs will be posted up there too!
+# Live examples
 
-**We are now a part of the [Open Collective](https://opencollective.com/pixijs) and with your support you can help us make PixiJS even better. To make a donation, simply click the button below and we'll love you forever!**
+* [Player vs Bot »](http://kanocomputing.github.io/Pong.js/examples/player-vs-bot.html)
+* [Player vs Player »](http://kanocomputing.github.io/Pong.js/examples/player-vs-player.html)
+* [Custom colors »](http://kanocomputing.github.io/Pong.js/examples/custom-colors.html)
+* [Random colors »](http://kanocomputing.github.io/Pong.js/examples/random-colors.html)
+* [Custom images »](http://kanocomputing.github.io/Pong.js/examples/images.html)
+* [Bot vs Bot »](http://kanocomputing.github.io/Pong.js/examples/bot-vs-bot.html)
+* [Custom ball »](http://kanocomputing.github.io/Pong.js/examples/custom-ball.html)
+* [Random balls »](http://kanocomputing.github.io/Pong.js/examples/random-balls.html)
+* [Shrink player »](http://kanocomputing.github.io/Pong.js/examples/shrink-player.html)
+* [Framed »](http://kanocomputing.github.io/Pong.js/examples/framed.html)
+* [Winning Screen »](http://kanocomputing.github.io/Pong.js/examples/winning-screen.html)
 
-<div align="center">
-  <a href="https://opencollective.com/pixijs/donate" target="_blank">
-    <img src="https://opencollective.com/pixijs/donate/button@2x.png?color=blue" width=250 />
-  </a>
-</div>
+# Usage
 
-### What to Use PixiJS for and When to Use It
+### Simple usage
 
-PixiJS is a rendering library that will allow you to create rich, interactive graphics, cross platform applications, and games without having to dive into the WebGL API or deal with browser and device compatibility.
+```javascript
+var pong = new Pong(document.getElementById('wrapper'));
 
-PixiJS has full [WebGL](https://en.wikipedia.org/wiki/WebGL) support and seamlessly falls back to HTML5's [canvas](https://en.wikipedia.org/wiki/Canvas_element) if needed. As a framework, PixiJS is a fantastic tool for authoring interactive content, *especially with the move away from Adobe Flash in recent years*. Use it for your graphics rich, interactive websites, applications, and HTML5 games.  Out of the box cross-platform compatibility and graceful degradation mean you have less work to do and have more fun doing it! If you want to create polished and refined experiences relatively quickly, without delving into dense, low level code, all while avoiding the headaches of browser inconsistencies, then sprinkle your next project with some PixiJS magic!
+// Add keyboard controls for player A
+pong.players.a.addControls({
+	'up': 'w',
+	'down': 's',
+});
 
-**Boost your development and feel free to use your imagination!**
+// Add behaviour for player B
+pong.on('update', function () {
 
-### Learn ###
-- Website: Find out more about PixiJS on the [official website](http://www.pixijs.com/).
-- Getting started: Check out @kittykatattack's comprehensive [tutorial](https://github.com/kittykatattack/learningPixi).
-- Examples: Get stuck right in and play around with PixiJS code and features right [here](http://pixijs.github.io/examples/)!
-- Docs: Get to know the PixiJS API by checking out the [docs](https://pixijs.github.io/docs/).
-- Wiki: Other misc tutorials and resources are [on the Wiki](https://github.com/pixijs/pixi.js/wiki).
+	if (pong.players.b.y < pong.balls[0].y) {
+		pong.players.b.move(1);
+	} else if (pong.players.b.y > pong.balls[0].y) {
+		pong.players.b.move(-1);
+	}
 
-### Community ###
-- Forums: Check out the [forum](http://www.html5gamedevs.com/forum/15-pixijs/) and [Stackoverflow](http://stackoverflow.com/search?q=pixi.js), both friendly places to ask your PixiJS questions.
-- Inspiration: Check out the [gallery](http://www.pixijs.com/gallery) to see some of the amazing things people have created!
-- Chat: You can join us on [Gitter](https://gitter.im/pixijs/pixi.js) To chat about PixiJS. We also now have a Slack channel. If you would like to join it please Send me an email (mat@goodboydigital.com) and I will invite you in.
-
-
-### Setup ###
-
-It's easy to get started with PixiJS! Simply download a [prebuilt build](https://github.com/pixijs/pixi.js/wiki/FAQs#where-can-i-get-a-build)!
-
-Alternatively, PixiJS can be installed with [npm](https://docs.npmjs.com/getting-started/what-is-npm) or simply using a content delivery network (CDN) URL to embed PixiJS directly on your HTML page.
-
-_Note: After v4.5.0, support for the [Bower](https://bower.io) package manager has been dropped. Please see the [release notes](https://github.com/pixijs/pixi.js/releases/tag/v4.5.0) for more information._
-
-#### NPM Install
-
-```sh
-npm install pixi.js
-```
-There is no default export. The correct way to import PixiJS is:
-
-```js
-import * as PIXI from 'pixi.js'
-```
-
-#### CDN Install (via cdnjs)
-
-```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
-```
-
-_Note: `5.1.3` can be replaced by any [released](https://github.com/pixijs/pixi.js/releases) version._
-
-### Demos ###
-
-- [Filters Demo](http://pixijs.io/pixi-filters/tools/demo/)
-- [Run Pixie Run](http://work.goodboydigital.com/runpixierun/)
-- [Flash vs HTML](http://flashvhtml.com)
-- [Bunny Demo](http://www.goodboydigital.com/pixijs/bunnymark)
-- [Storm Brewing](http://www.goodboydigital.com/pixijs/storm)
-- [Render Texture Demo](http://www.goodboydigital.com/pixijs/examples/11)
-- [Primitives Demo](http://www.goodboydigital.com/pixijs/examples/13)
-- [Masking Demo](http://www.goodboydigital.com/pixijs/examples/14)
-- [Interaction Demo](http://www.goodboydigital.com/pixijs/examples/6)
-- [photonstorm's Balls Demo](http://gametest.mobi/pixi/balls)
-- [photonstorm's Morph Demo](http://gametest.mobi/pixi/morph)
-
-Thanks to [@photonstorm](https://twitter.com/photonstorm) for providing
-those last 2 examples and allowing us to share the source code :)
-
-### Contribute ###
-
-Want to be part of the PixiJS project? Great! All are welcome! We will get there quicker
-together :) Whether you find a bug, have a great feature request or you fancy owning a task
-from the road map above feel free to get in touch.
-
-Make sure to read the [Contributing Guide](.github/CONTRIBUTING.md)
-before submitting changes.
-
-### Current features ###
-
-- WebGL renderer (with automatic smart batching allowing for REALLY fast performance)
-- Canvas renderer (Fastest in town!)
-- Full scene graph
-- Super easy to use API (similar to the flash display list API)
-- Support for texture atlases
-- Asset loader / sprite sheet loader
-- Auto-detect which renderer should be used
-- Full Mouse and Multi-touch Interaction
-- Text
-- BitmapFont text
-- Multiline Text
-- Render Texture
-- Primitive Drawing
-- Masking
-- Filters
-- [User Plugins](https://github.com/pixijs/pixi.js/wiki/v5-Resources)
-
-### Basic Usage Example ###
-
-```js
-import * as PIXI from 'pixi.js';
-
-// The application will create a renderer using WebGL, if possible,
-// with a fallback to a canvas render. It will also setup the ticker
-// and the root stage PIXI.Container
-const app = new PIXI.Application();
-
-// The application will create a canvas element for you that you
-// can then insert into the DOM
-document.body.appendChild(app.view);
-
-// load the texture we need
-app.loader.add('bunny', 'bunny.png').load((loader, resources) => {
-    // This creates a texture from a 'bunny.png' image
-    const bunny = new PIXI.Sprite(resources.bunny.texture);
-
-    // Setup the position of the bunny
-    bunny.x = app.renderer.width / 2;
-    bunny.y = app.renderer.height / 2;
-
-    // Rotate around the center
-    bunny.anchor.x = 0.5;
-    bunny.anchor.y = 0.5;
-
-    // Add the bunny to the scene we are building
-    app.stage.addChild(bunny);
-
-    // Listen for frame updates
-    app.ticker.add(() => {
-         // each frame we spin the bunny around a bit
-        bunny.rotation += 0.01;
-    });
 });
 ```
 
-### How to build ###
+### Installation
 
-Note that for most users you don't need to build this project. If all you want is to use PixiJS, then
-just download one of our [prebuilt releases](https://github.com/pixijs/pixi.js/releases). Really
-the only time you should need to build PixiJS is if you are developing it.
+#### Using npm + Browserify
 
-If you don't already have Node.js and NPM, go install them. Then, in the folder where you have cloned
-the repository, install the build dependencies using npm:
+`npm install pong.js`
 
-```sh
+```javascript
+var Pong = require('pong.js'),
+	pong = new Pong(document.getElementById('wrapper'));
+```
+
+#### Using Bower
+
+`bower install pong.js`
+
+```html
+<script type="text/javascript" src="bower_components/pong.js/build/Pong.js"></script>
+```
+
+#### Usage example
+
+```javascript
+
+// Add keyboard controls for player A
+pong.players.a.addControls({
+	'up': 'w',
+	'down': 's',
+});
+
+// Add behaviour for player B
+pong.on('update', function () {
+
+	if (pong.players.b.y < pong.balls[0].y) {
+		pong.players.b.move(1);
+	} else if (pong.players.b.y > pong.balls[0].y) {
+		pong.players.b.move(-1);
+	}
+
+});
+
+// Use a custom image for the ball
+pong.setBallImage('./assets/ball.png');
+
+// Use a background color
+pong.setBackgroundColor('#ff0000');
+```
+
+# Development
+
+### Global Dependencies
+
+* Browserify `npm install -g browserify`
+* Watchify `npm install -g watchify`
+
+### Install
+
+```
+git clone git@github.com:KanoComputing/Pong.js.git
+cd Pong.js
 npm install
 ```
 
-Then, to build the source, run:
+### Build
 
-```sh
-npm run build
-```
+`npm run build`
 
-### How to generate the documentation ###
+### Watch
 
-The docs can be generated using npm:
+`npm run watch`
 
-```sh
-npm run docs
-```
+# API documentation
 
-The documentation uses JSDocs in combination with this template [pixi-jsdoc-template](https://github.com/pixijs/pixi-jsdoc-template). The configuration file can be found at [jsdoc.conf.json](jsdoc.conf.json)
+## Pong instance
 
-### License ###
+#### Methods
 
-This content is released under the (http://opensource.org/licenses/MIT) MIT License.
+* `start()` - Start game
+* `pause()` - Pause game (Showing pause screen)
+* `resume()` - Resume paused game
+* `togglePaused()` - Pause or resume game
+* `refresh()` - Re-render screen
+* `update()` - Run next frame in the gameloop
+* `updateIfStill()` - Only update if gameloop not running
+* `resize()` - Resize accordingly to wrapper size. Use for responsive implementations
+* `resetBalls( add_one )` - Remove all balls, add one if `true` is passed
+* `restart()` - Reset position of players and ball
+* `reset()` - Reset game (Restore start screen, scores, ..)
+* `setBackgroundColor( string )` - Set background color using hexa string (`#xxxxxx`)
+* `setBackgroundImage( string )` - Set background image asset url / relative path
+* `setLinesColor( string )` - Set lines color using hexa string (`#xxxxxx`)
+* `setTextStyle( object )` - Set text style attributes (E.g. `font`, `fill`, `align`)
+* `setBallColor( string )` - Set the color of balls currently on stage and future ones
+* `setBallImage( string )` - Set ball image asset url / relative path for all balls on stage (Recommended if 1:1 ratio assets)
+* `setBallSize( number )` - Set the size of balls currently on stage and future ones
+* `setBallSpeed( number )` - Set the speed of balls currently on stage and future ones
+* `addBall()` - Add a ball to the game
+* `on( event , callback )` - Bind callback to a game event
+* `emit( event , [ params.. ])` - Emit a game event
+* `win( string )` - Stops game, display message to screen
 
-[![Analytics](https://ga-beacon.appspot.com/UA-39213431-2/pixi.js/index)](https://github.com/igrigorik/ga-beacon)
+#### Properties
+
+* `events` - Game event emitter
+* `players` - Object containing Players (`a` and `b` by default)
+* `stage` - Pixi.js stage
+* `renderer` - Pixi.js renderer
+* `wrapper` - Wrapping DOM element
+* `balls` - Array containing Ball objects
+* `loop` - GameLoop object
+* `bounces` - Number of ball bounces since last point
+* `totalBounces` - Number of ball bounces since the start of the current game
+* `hits` - Number of times a player hit the ball since last point
+* `totalHits` - Number of times a player hit the ball since the start of the current game
+
+#### Events
+
+* `start` - Triggered when game is started
+* `stop` - Triggered when game is stopped
+* `pause` - Triggered when game is paused
+* `resume` - Triggered when game is resumed
+* `beforeupdate` - Triggered before every gameloop iteration
+* `update` - Triggered after every gameloop iteration
+* `resize` - Triggered when the game is resized
+* `point` - Triggered by every player when a point is scored
+* `setLinesColor` - Used by UI children, triggered when `.setLinesColor` is called
+* `setTextStyle` - Used by UI children, triggered when `.setTextStyle` is called
+* `setBallColor` - Used by Ball instances, triggered when `.setBallColor` is called
+* `setBallSize` - Used by Ball instances, triggered when `.setBallSize` is called
+* `setBallSpeed` - Used by Ball instances, triggered when `.setBallSpeed` is called
+* `bounce` - Fired every time a ball bounces
+* `hit` - Fired every time a ball hits a player
+
+## Player instances
+
+#### Methods
+
+* `addControls( object )` - Add keyboard controls (E.g. `{ up: 'w', down: 's' }`)
+* `move( number )` - Move up (`-1`) or down (`1`) according to speed at next iteration
+* `screenX()` - Returns screen X position
+* `screenY()` - Returns screen Y position
+* `getBoundingBox()` - Returns paddle bounding box
+* `reset()` - Reset player position
+* `addPoint()` - Increse player score
+* `setHeight( number )` - Set paddle height
+* `setY( number )` - Set player Y position
+* `setColor( string )` - Set paddle color using hexa string (`#xxxxxx`)
+* `on( event, callback )` - Bind callback to a player event
+* `emit( event , [ params.. ])` - Emit a player event
+
+#### Events
+
+* `point` - Triggered when player scores a point
+* `hit` - Triggered when player hits a ball
+
+#### Properties
+
+* `side` - `left` or `right`
+* `width` - Paddle screen width
+* `height` - Paddle screen height
+* `speed` - Player speed per second (300 by default)
+* `y` - game Y position
+* `score` - Player score
+* `color` - Octal color string
+
+## Ball instances
+
+#### Methods
+
+* `setSize( number )` - Set ball radius in pixels
+* `setColor( string )` - Set ball color using hexa string (`#xxxxxx`)
+* `setImage( string )` - Set the ball image asset url / relative path (Recommended if 1:1 ratio assets)
+* `rebound( direction )` - Reset ball position, pointing right when `direction` is positive, left when negative
+
+#### Properties
+
+* `color` - Octal color string
+* `size` - Ball radius in pixels
+* `velocity` - Object containing X and Y velocity
+* `image` - Background image url / relative path

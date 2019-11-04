@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pong.js - Bot vs Bot</title>
+
+	<script type="text/javascript" src="../build/Pong.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<script type="text/javascript">
+
+		window.onload = function () {
+			var pong = new Pong(document.getElementById('pong'));
+
+			function resize () {
+				var gameHeight = window.innerHeight - 40 + 'px';
+				document.getElementById('pong').style.height = gameHeight;
+
+				pong.resize();
+			}
+
+			resize();
+			window.onresize = resize;
+
+			pong.on('update', function () {
+
+				if (pong.players.a.y > pong.balls[0].y) {
+					pong.players.a.move(-1);
+				}
+
+				if (pong.players.a.y < pong.balls[0].y) {
+					pong.players.a.move(1);
+				}
+
+			});
+
+			pong.on('update', function () {
+				window.i = ( window.i || 0 ) + 1
+
+				pong.players.a.speed = pong.players.b.speed = 250;
+
+				if (pong.players.b.y > pong.balls[0].y) {
+					pong.players.b.move(-1);
+				}
+
+				if (pong.players.b.y < pong.balls[0].y) {
+					pong.players.b.move(1);
+				}
+
+			});
+
+			pong.start();
+		};
+
+	</script>
+
+</head>
+<body>
+
+	<div id="pong"></div>
+
+	<div class="panel">
+		Bots control the paddles!
+	</div>
+
+</body>
+</html>

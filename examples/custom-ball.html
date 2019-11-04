@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pong.js - Random Ball</title>
+
+	<script type="text/javascript" src="../build/Pong.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+
+	<script type="text/javascript">
+
+		window.onload = function () {
+			var pong = new Pong(document.getElementById('pong'));
+
+			function resize () {
+				var gameHeight = window.innerHeight - 40 + 'px';
+				document.getElementById('pong').style.height = gameHeight;
+
+				pong.resize();
+			}
+
+			resize();
+			window.onresize = resize;
+
+			pong.on('update', function () {
+
+				if (pong.players.a.y > pong.balls[0].y) {
+					pong.players.a.move(-1);
+				}
+
+				if (pong.players.a.y < pong.balls[0].y) {
+					pong.players.a.move(1);
+				}
+
+			});
+
+			pong.on('update', function () {
+
+				pong.players.a.speed = pong.players.b.speed = 800;
+
+				if (pong.players.b.y > pong.balls[0].y) {
+					pong.players.b.move(-1);
+				}
+
+				if (pong.players.b.y < pong.balls[0].y) {
+					pong.players.b.move(1);
+				}
+
+			});
+
+			function randomColor () {
+				return '#' + Math.floor(Math.random() * 16777215).toString(16);
+			}
+
+			function randomiseBall () {
+				pong.setBallSize(Math.random() * 20 + 5);
+				pong.setBallSpeed(Math.random() * 900 + 200);
+				pong.setBallColor(randomColor());
+			}
+
+			randomiseBall();
+
+			pong.on('point', function () {
+				randomiseBall();
+			});
+
+			pong.start();
+		};
+
+	</script>
+
+</head>
+<body>
+
+	<div id="pong"></div>
+
+	<div class="panel">
+		Bots control the paddles!
+	</div>
+
+</body>
+</html>
