@@ -17,7 +17,6 @@
     </head>
     <body>
 
-        <canvas id="mycanvas"></canvas>
         <script type="text/javascript">
 
             /* Funciones/propiedades interesantes
@@ -77,8 +76,6 @@
 
             }
 
-            const canvas = document.getElementById('mycanvas');
-
             const app = new PIXI.Application({
 
                 width: _w,
@@ -91,8 +88,8 @@
             //Responsive design variables
             var barHigh = 30 - (app.screen.height / 17);
             var barWidht = 400 - (app.screen.width / 12.6);
-            var buttonHigh = 145 - (app.screen.height / 17);
-            var buttonWidht =  200 - (app.screen.width / 50);
+            var buttonHigh = 87.5;
+            var buttonWidht =  171.6;
             var habilidad2Xp;
             var habilidad3Xp;
             var habilidad4Xp;
@@ -109,6 +106,7 @@
                 .load(onplayer1Load);
 
 
+            //Cargar sprites
             function onplayer1Load() {
 
                 for (let i = 0; i < 6; i++)
@@ -163,10 +161,9 @@
 
             }
 
-            let delta = 0;
+            //Responsive
             function animateSprite() {
 
-                delta += 0.1;
                 player1.x = app.screen.width / 4.3;
                 player1.y = app.screen.height / 3;
                 player1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
@@ -187,6 +184,7 @@
 
             }
 
+            //Inicializar barras de vida
             let fondo1 = new PIXI.Graphics();
             app.stage.addChild(fondo1);
 
@@ -199,22 +197,19 @@
             let vida2 = new PIXI.Graphics();
             app.stage.addChild(vida2);
 
+            //Inicializar botones
             let Habilidad1 = new PIXI.Graphics();
             app.stage.addChild(Habilidad1);
-
             Habilidad1.interactive = true
             Habilidad1.buttonMode = true
-
             Habilidad1
                 .on('pointerover', habilidad1Over)
                 .on('pointerout', habilidad1Out)
 
             let Habilidad2 = new PIXI.Graphics();
             app.stage.addChild(Habilidad2);
-
             Habilidad2.interactive = true
             Habilidad2.buttonMode = true
-
             Habilidad2
                 .on('pointerover', habilidad2Over)
                 .on('pointerout', habilidad2Out)
@@ -222,35 +217,29 @@
 
             let Habilidad3 = new PIXI.Graphics();
             app.stage.addChild(Habilidad3);
-
             Habilidad3.interactive = true
             Habilidad3.buttonMode = true
-
             Habilidad3
                 .on('pointerover', habilidad3Over)
                 .on('pointerout', habilidad3Out)
                 .on('pointerdown', combate);
 
-
             let Habilidad4 = new PIXI.Graphics();
             app.stage.addChild(Habilidad4);
-
             Habilidad4.interactive = true
             Habilidad4.buttonMode = true
-
             Habilidad4
                 .on('pointerover', habilidad4Over)
                 .on('pointerout', habilidad4Out)
                 .on('pointerdown', combate);
 
-            //app.ticker.add(animateAll);
-
+            //Interacciones con el mouse
             function habilidad1Over(){
 
                 Habilidad1.clear()
-                Habilidad1.lineStyle(3, 0xebf9e4);
-                Habilidad1.beginFill(0xc3c3c3)
-                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
+                Habilidad1.lineStyle(3, 0xf3ffed);
+                Habilidad1.beginFill(0xa0faa0)
+                Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
                 miMovimento = 1;
 
@@ -259,9 +248,9 @@
             function habilidad1Out(){
 
                 Habilidad1.clear()
-                Habilidad1.lineStyle(3, 0xebf9e4);
+                Habilidad1.lineStyle(3, 0xf3ffed);
                 Habilidad1.beginFill(0xdfdfdf)
-                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
+                Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
                 
             }
@@ -269,8 +258,8 @@
             function habilidad2Over(){
 
                 Habilidad2.clear()
-                Habilidad2.lineStyle(3, 0xebf9e4);
-                Habilidad2.beginFill(0xc3c3c3)
+                Habilidad2.lineStyle(3, 0xf3ffed);
+                Habilidad2.beginFill(0xa0faa0)
                 Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
                 miMovimento = 2;
@@ -280,7 +269,7 @@
             function habilidad2Out(){
 
                 Habilidad2.clear()
-                Habilidad2.lineStyle(3, 0xebf9e4);
+                Habilidad2.lineStyle(3, 0xf3ffed);
                 Habilidad2.beginFill(0xdfdfdf)
                 Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
@@ -290,8 +279,8 @@
             function habilidad3Over(){
 
                 Habilidad3.clear()
-                Habilidad3.lineStyle(3, 0xebf9e4);
-                Habilidad3.beginFill(0xc3c3c3)
+                Habilidad3.lineStyle(3, 0xf3ffed);
+                Habilidad3.beginFill(0xa0faa0)
                 Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
                 miMovimento = 3;
@@ -301,7 +290,7 @@
             function habilidad3Out(){
 
                 Habilidad3.clear()
-                Habilidad3.lineStyle(3, 0xebf9e4);
+                Habilidad3.lineStyle(3, 0xf3ffed);
                 Habilidad3.beginFill(0xdfdfdf)
                 Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
@@ -311,8 +300,8 @@
             function habilidad4Over(){
 
                 Habilidad4.clear()
-                Habilidad4.lineStyle(3, 0xebf9e4);
-                Habilidad4.beginFill(0xc3c3c3)
+                Habilidad4.lineStyle(3, 0xf3ffed);
+                Habilidad4.beginFill(0xa0faa0)
                 Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
                 miMovimento = 4;
@@ -322,20 +311,39 @@
             function habilidad4Out(){
 
                 Habilidad4.clear()
-                Habilidad4.lineStyle(3, 0xebf9e4);
+                Habilidad4.lineStyle(3, 0xf3ffed);
                 Habilidad4.beginFill(0xdfdfdf)
                 Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
 
             }
+
+            //Inicializar texto
+            const nombre1 = new PIXI.Text('Defensa dorada');
+            nombre1.x = ((Habilidad1.getBounds().width - nombre1.getBounds().width) + (nombre1.getBounds().width / 2)) + ((nombre1.getBounds().width / 10) - 20);
+            nombre1.y = -20;
+            Habilidad1.addChild(nombre1);
+            const nombre2 = new PIXI.Text('Lanza oro');
+            console.log(nombre1.getBounds().width);
+            console.log(nombre2.getBounds().width);
+            nombre2.x = ((Habilidad2.getBounds().width - nombre2.getBounds().width) + (nombre2.getBounds().width / 2)) + ((nombre2.getBounds().width / 10) - 10);
+            nombre2.y = -20;
+            Habilidad2.addChild(nombre2);
+            const nombre3 = new PIXI.Text('Batiseñal');
+            nombre3.x = ((Habilidad3.getBounds().width - nombre3.getBounds().width) + (nombre3.getBounds().width / 2)) + (nombre3.getBounds().width / 10);
+            nombre3.y = -20;
+            Habilidad3.addChild(nombre3);
+            const nombre4 = new PIXI.Text('Refugio');
+            nombre4.x = ((Habilidad4.getBounds().width - nombre4.getBounds().width) + (nombre4.getBounds().width / 2)) + ((nombre4.getBounds().width / 10) + 10);
+            nombre4.y = -20;
+            Habilidad4.addChild(nombre4);
             animateAll();
 
             function animateAll() {
 
-                var responsiveButtonsY = app.renderer.height / 1.5;
-                var habilidad2X = app.renderer.width / 2.43;
-                var habilidad3X = app.renderer.width / 1.7;
-                var habilidad4X = app.renderer.width / 1.3;
+                var responsiveButtonsY;
+                var habilidad2X, habilidad3X, habilidad4X;
+                var textWidht, butWid;
                 //Soporte para telefonos
                 if(barHigh > -30) barHigh = -30;
                 if(app.screen.width <= 800){
@@ -346,9 +354,10 @@
                     habilidad2X = app.renderer.width / 1.7;
                     habilidad3X = app.renderer.width / 4.3;
                     habilidad4X = app.renderer.width / 1.7;
-                    habilidad2Xp = -100;
-                    habilidad3Xp = -120;
-                    habilidad4Xp = -100;
+                    habilidad2Xp = -90;
+                    habilidad3Xp = -110;
+                    habilidad4Xp = -90;
+                    textWidht = 1.5;
 
                 }else{
 
@@ -358,9 +367,10 @@
                     habilidad2X = app.renderer.width / 2.43;
                     habilidad3X = app.renderer.width / 1.7;
                     habilidad4X = app.renderer.width / 1.3;
-                    habilidad2Xp = -110;
-                    habilidad3Xp = -100;
-                    habilidad4Xp = -90;
+                    habilidad2Xp = -100;
+                    habilidad3Xp = -90;
+                    habilidad4Xp = -80;
+                    textWidht = 0.75;
 
                 }
 
@@ -403,8 +413,9 @@
                 Habilidad1.clear()
                 Habilidad1.lineStyle(3, 0xebf9e4);
                 Habilidad1.beginFill(0xdfdfdf)
-                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
+                Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
+                
                 Habilidad2.x = habilidad2X;
                 Habilidad2.y = app.renderer.height / 1.5;
                 Habilidad2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
@@ -413,6 +424,7 @@
                 Habilidad2.beginFill(0xdfdfdf)
                 Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
+
                 Habilidad3.x = habilidad3X;
                 Habilidad3.y = responsiveButtonsY;
                 Habilidad3.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
@@ -421,6 +433,7 @@
                 Habilidad3.beginFill(0xdfdfdf)
                 Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
+
                 Habilidad4.x = habilidad4X;
                 Habilidad4.y = responsiveButtonsY;
                 Habilidad4.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
@@ -430,6 +443,12 @@
                 Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
 
+                //Texto
+                nombre1.scale = new PIXI.Point(textWidht, 1);
+                nombre2.scale = new PIXI.Point(textWidht, 1);
+                nombre3.scale = new PIXI.Point(textWidht, 1);
+                nombre4.scale = new PIXI.Point(textWidht, 1);
+                
             }
             /*player1.on('pointerdown', () => {
 
