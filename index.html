@@ -4,6 +4,11 @@
     <head>
 
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, minimal-ui">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
         <title>El grupo de los 10</title>
         <link rel="stylesheet" type="text/css" href="index.css">
         <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
@@ -43,7 +48,7 @@
 
             */
 
-
+            //Game variables
             var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
             var miMovimento;
             const frames1 = [];
@@ -71,20 +76,29 @@
                 Velocidad: 9
 
             }
+
             const canvas = document.getElementById('mycanvas');
 
             const app = new PIXI.Application({
 
-                view: canvas,
                 width: _w,
                 height: _h,
-                resolution: window.devicePixelRatio,
-                autoDensity: true
 
             });
             document.body.appendChild(app.view);
+            app.renderer.antialias = true;
 
+            //Responsive design variables
+            var barHigh = 30 - (app.screen.height / 17);
+            var barWidht = 400 - (app.screen.width / 12.6);
+            var buttonHigh = 145 - (app.screen.height / 17);
+            var buttonWidht =  200 - (app.screen.width / 50);
+            var habilidad2Xp;
+            var habilidad3Xp;
+            var habilidad4Xp;
+            var mobile = false;
             const ticker = new PIXI.Ticker();
+
             app.loader
                 .add('corti', 'assets/corti1/spritesheet.json')
                 .add('cortiAtk', 'assets/cortiAtk1/spritesheet.json')
@@ -145,7 +159,7 @@
 
                 });
 
-                app.ticker.add(animateSprite);
+                animateSprite();
 
             }
 
@@ -159,6 +173,17 @@
                 player2.x = app.screen.width / 1.3;
                 player2.y = app.screen.height / 3;
                 player2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+
+            }
+
+            window.addEventListener('resize', resize);
+            function resize(){
+
+                _w = window.innerWidth;
+                _h = window.innerHeight;
+                app.renderer.resize(_w, _h);
+                animateSprite();
+                animateAll();
 
             }
 
@@ -218,12 +243,14 @@
                 .on('pointerout', habilidad4Out)
                 .on('pointerdown', combate);
 
-            app.ticker.add(animateAll);
+            //app.ticker.add(animateAll);
 
             function habilidad1Over(){
 
+                Habilidad1.clear()
+                Habilidad1.lineStyle(3, 0xebf9e4);
                 Habilidad1.beginFill(0xc3c3c3)
-                Habilidad1.drawRect(-100, -50, 200, 100);
+                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
                 miMovimento = 1;
 
@@ -231,16 +258,20 @@
 
             function habilidad1Out(){
 
+                Habilidad1.clear()
+                Habilidad1.lineStyle(3, 0xebf9e4);
                 Habilidad1.beginFill(0xdfdfdf)
-                Habilidad1.drawRect(-100, -50, 200, 100);
+                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
                 
             }
 
             function habilidad2Over(){
 
+                Habilidad2.clear()
+                Habilidad2.lineStyle(3, 0xebf9e4);
                 Habilidad2.beginFill(0xc3c3c3)
-                Habilidad2.drawRect(-100, -50, 200, 100);
+                Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
                 miMovimento = 2;
 
@@ -248,16 +279,20 @@
 
             function habilidad2Out(){
 
+                Habilidad2.clear()
+                Habilidad2.lineStyle(3, 0xebf9e4);
                 Habilidad2.beginFill(0xdfdfdf)
-                Habilidad2.drawRect(-100, -50, 200, 100);
+                Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
 
             }
 
             function habilidad3Over(){
 
+                Habilidad3.clear()
+                Habilidad3.lineStyle(3, 0xebf9e4);
                 Habilidad3.beginFill(0xc3c3c3)
-                Habilidad3.drawRect(-100, -50, 200, 100);
+                Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
                 miMovimento = 3;
 
@@ -265,16 +300,20 @@
 
             function habilidad3Out(){
 
+                Habilidad3.clear()
+                Habilidad3.lineStyle(3, 0xebf9e4);
                 Habilidad3.beginFill(0xdfdfdf)
-                Habilidad3.drawRect(-100, -50, 200, 100);
+                Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
 
             }
                 
             function habilidad4Over(){
 
+                Habilidad4.clear()
+                Habilidad4.lineStyle(3, 0xebf9e4);
                 Habilidad4.beginFill(0xc3c3c3)
-                Habilidad4.drawRect(-100, -50, 200, 100);
+                Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
                 miMovimento = 4;
 
@@ -282,79 +321,113 @@
 
             function habilidad4Out(){
 
+                Habilidad4.clear()
+                Habilidad4.lineStyle(3, 0xebf9e4);
                 Habilidad4.beginFill(0xdfdfdf)
-                Habilidad4.drawRect(-100, -50, 200, 100);
+                Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
 
             }
+            animateAll();
 
             function animateAll() {
 
-                var high = 30 - (app.screen.height / 17);
-                if(high > -30) high = -30;
-                console.log(high);
-                console.log(30 - (app.screen.width / 17));
-                vida1.x = app.renderer.width / 6.1;
-                vida1.y = app.renderer.height / 9;
-                vida1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                var responsiveButtonsY = app.renderer.height / 1.5;
+                var habilidad2X = app.renderer.width / 2.43;
+                var habilidad3X = app.renderer.width / 1.7;
+                var habilidad4X = app.renderer.width / 1.3;
+                //Soporte para telefonos
+                if(barHigh > -30) barHigh = -30;
+                if(app.screen.width <= 800){
+
+                    if (!mobile) buttonWidht *= 2;
+                    mobile = true;
+                    responsiveButtonsY = app.renderer.height / 1.2;
+                    habilidad2X = app.renderer.width / 1.7;
+                    habilidad3X = app.renderer.width / 4.3;
+                    habilidad4X = app.renderer.width / 1.7;
+                    habilidad2Xp = -100;
+                    habilidad3Xp = -120;
+                    habilidad4Xp = -100;
+
+                }else{
+
+                    if(mobile) buttonWidht /= 2;
+                    mobile = false;
+                    responsiveButtonsY = app.renderer.height / 1.5;
+                    habilidad2X = app.renderer.width / 2.43;
+                    habilidad3X = app.renderer.width / 1.7;
+                    habilidad4X = app.renderer.width / 1.3;
+                    habilidad2Xp = -110;
+                    habilidad3Xp = -100;
+                    habilidad4Xp = -90;
+
+                }
+
+                //Barras de vida
                 vida1.clear();
                 vida1.lineStyle(3, 0xebf9e4);
                 vida1.beginFill(0x52ff52)
-                vida1.drawRect(-73, -30, 400 - (app.screen.width / 12.6), high);
+                vida1.drawRect(-73, -30, barWidht, barHigh);
                 vida1.endFill();
+                vida1.x = app.renderer.width / 6.1;
+                vida1.y = app.renderer.height / 9;
+                vida1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                fondo1.clear()
+                fondo1.beginFill(0xebf9e4)
+                fondo1.drawRect(-73, -30, barWidht, barHigh);
+                fondo1.endFill();
                 fondo1.x = app.renderer.width / 6.1;
                 fondo1.y = app.renderer.height / 9;
                 fondo1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                fondo1.clear()
-                fondo1.beginFill(0xebf9e4)
-                fondo1.drawRect(-73, -30, 400 - (app.screen.width / 12.6), high);
-                fondo1.endFill();
-                vida2.x = app.renderer.width / 1.5;
-                vida2.y = app.renderer.height / 9;
-                vida2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
                 vida2.clear();
                 vida2.lineStyle(3, 0xebf9e4);
                 vida2.beginFill(0x52ff52)
-                vida2.drawRect(-73, -30, 400 - (app.screen.width / 12.6), high);
+                vida2.drawRect(-73, -30, barWidht, barHigh);
                 vida2.endFill();
+                vida2.x = app.renderer.width / 1.5;
+                vida2.y = app.renderer.height / 9;
+                vida2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                fondo2.clear()
+                fondo2.beginFill(0xebf9e4)
+                fondo2.drawRect(-73, -30, barWidht, barHigh);
+                fondo2.endFill();
                 fondo2.x = app.renderer.width / 1.5;
                 fondo2.y = app.renderer.height / 9;
                 fondo2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                fondo2.clear()
-                fondo2.beginFill(0xebf9e4)
-                fondo2.drawRect(-73, -30, 400 - (app.screen.width / 12.6), high);
-                fondo2.endFill();
+                
+                //Botones
                 Habilidad1.x = app.renderer.width / 4.3;
                 Habilidad1.y = app.renderer.height / 1.5;
                 Habilidad1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
                 Habilidad1.clear()
                 Habilidad1.lineStyle(3, 0xebf9e4);
                 Habilidad1.beginFill(0xdfdfdf)
-                Habilidad1.drawRect(-120, -50, 200 - (app.screen.width / 50), 70 - high);
+                Habilidad1.drawRect(-120, -50, buttonWidht, buttonHigh);
                 Habilidad1.endFill();
-                Habilidad2.x = app.renderer.width / 2.43;
+                Habilidad2.x = habilidad2X;
                 Habilidad2.y = app.renderer.height / 1.5;
                 Habilidad2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
                 Habilidad2.clear()
                 Habilidad2.lineStyle(3, 0xebf9e4);
                 Habilidad2.beginFill(0xdfdfdf)
-                Habilidad2.drawRect(-110, -50, 200 - (app.screen.width / 50), 70 - high);
+                Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
                 Habilidad2.endFill();
-                Habilidad3.x = app.renderer.width / 1.7;
-                Habilidad3.y = app.renderer.height / 1.5;
+                Habilidad3.x = habilidad3X;
+                Habilidad3.y = responsiveButtonsY;
                 Habilidad3.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
                 Habilidad3.clear()
                 Habilidad3.lineStyle(3, 0xebf9e4);
                 Habilidad3.beginFill(0xdfdfdf)
-                Habilidad3.drawRect(-100, -50, 200 - (app.screen.width / 50), 70 - high);
+                Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
                 Habilidad3.endFill();
-                Habilidad4.x = app.renderer.width / 1.3;
-                Habilidad4.y = app.renderer.height / 1.5;
+                Habilidad4.x = habilidad4X;
+                Habilidad4.y = responsiveButtonsY;
                 Habilidad4.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
                 Habilidad4.clear()
                 Habilidad4.lineStyle(3, 0xebf9e4);
                 Habilidad4.beginFill(0xdfdfdf)
-                Habilidad4.drawRect(-90, -50, 200 - (app.screen.width / 50), 70 - high);
+                Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
 
             }
@@ -460,16 +533,6 @@
                 }
 
             }
-
-            window.addEventListener('resize', resize);
-            function resize(){
-
-                _w = window.innerWidth;
-                _h = window.innerHeight;
-                app.renderer.resize(_w, _h);
-                
-            }
-
             
             /*const texture = PIXI.Texture.from('sprite.png');
             const texture1 = PIXI.Texture;
