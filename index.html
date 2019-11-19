@@ -48,8 +48,9 @@
             */
 
             //Game variables
-            var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
             var miMovimento;
+            var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
+            var line1, line2, fill1, fill2;
             const frames1 = [];
             const framesAtk1 = [];
             const framesDmg1 = [];
@@ -57,10 +58,12 @@
             const framesAtk2 = [];
             const framesDmg2 = [];
             var golpe = false;
+            var myBreak;
             let _w = window.innerWidth;
             let _h = window.innerHeight;
             var jugador1 = {
 
+                VidaMax: 95,
                 Vida: 95,
 				Ataque: 10,
 				Defensa: 8,
@@ -69,12 +72,39 @@
             }
             var jugador2 = {
 
+                VidaMax: 100,
                 Vida: 100,
                 Ataque: 10,
                 Defensa: 11,
                 Velocidad: 9
 
             }
+            var healts = {
+
+                high: {
+
+                    line: 0xe4f9e4,
+                    fill: 0x52ff52
+
+                },
+                mid: {
+
+                    line: 0xf9f9e4,
+                    fill: 0xffcd52
+
+                },
+                low: {
+
+                    line: 0xf9e4e4,
+                    fill: 0xff5252
+
+                }
+
+            }
+            line1 = healts.high.line;
+            line2 = healts.high.line;
+            fill1 = healts.high.fill;
+            fill2 = healts.high.fill;
 
             const app = new PIXI.Application({
 
@@ -88,13 +118,15 @@
             //Responsive design variables
             var barHigh = 30 - (app.screen.height / 17);
             var barWidht = 400 - (app.screen.width / 12.6);
+            var aVida1 = barWidht;
+            var aVida2 = barWidht;
             var buttonHigh = 87.5;
             var buttonWidht =  171.6;
-            var habilidad2Xp;
-            var habilidad3Xp;
-            var habilidad4Xp;
+            var habilidad2Xp, habilidad3Xp, habilidad4Xp;
             var mobile = false;
             const ticker = new PIXI.Ticker();
+            var tic = new PIXI.Ticker();
+            tic.speed = 0.7;
 
             app.loader
                 .add('corti', 'assets/corti1/spritesheet.json')
@@ -205,6 +237,7 @@
             Habilidad1
                 .on('pointerover', habilidad1Over)
                 .on('pointerout', habilidad1Out)
+                .on('pointerdown', combate);
 
             let Habilidad2 = new PIXI.Graphics();
             app.stage.addChild(Habilidad2);
@@ -324,8 +357,6 @@
             nombre1.y = -20;
             Habilidad1.addChild(nombre1);
             const nombre2 = new PIXI.Text('Lanza oro');
-            console.log(nombre1.getBounds().width);
-            console.log(nombre2.getBounds().width);
             nombre2.x = ((Habilidad2.getBounds().width - nombre2.getBounds().width) + (nombre2.getBounds().width / 2)) + ((nombre2.getBounds().width / 10) - 10);
             nombre2.y = -20;
             Habilidad2.addChild(nombre2);
@@ -374,38 +405,8 @@
 
                 }
 
-                //Barras de vida
-                vida1.clear();
-                vida1.lineStyle(3, 0xebf9e4);
-                vida1.beginFill(0x52ff52)
-                vida1.drawRect(-73, -30, barWidht, barHigh);
-                vida1.endFill();
-                vida1.x = app.renderer.width / 6.1;
-                vida1.y = app.renderer.height / 9;
-                vida1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                fondo1.clear()
-                fondo1.beginFill(0xebf9e4)
-                fondo1.drawRect(-73, -30, barWidht, barHigh);
-                fondo1.endFill();
-                fondo1.x = app.renderer.width / 6.1;
-                fondo1.y = app.renderer.height / 9;
-                fondo1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                vida2.clear();
-                vida2.lineStyle(3, 0xebf9e4);
-                vida2.beginFill(0x52ff52)
-                vida2.drawRect(-73, -30, barWidht, barHigh);
-                vida2.endFill();
-                vida2.x = app.renderer.width / 1.5;
-                vida2.y = app.renderer.height / 9;
-                vida2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                fondo2.clear()
-                fondo2.beginFill(0xebf9e4)
-                fondo2.drawRect(-73, -30, barWidht, barHigh);
-                fondo2.endFill();
-                fondo2.x = app.renderer.width / 1.5;
-                fondo2.y = app.renderer.height / 9;
-                fondo2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-                
+                animateHealtBars();
+
                 //Botones
                 Habilidad1.x = app.renderer.width / 4.3;
                 Habilidad1.y = app.renderer.height / 1.5;
@@ -449,6 +450,47 @@
                 nombre3.scale = new PIXI.Point(textWidht, 1);
                 nombre4.scale = new PIXI.Point(textWidht, 1);
                 
+            };
+
+            function animateHealtBars(){
+
+                //Barras de vida
+                vida1.clear();
+                vida1.lineStyle(3, line1);
+                vida1.beginFill(fill1);
+                vida1.drawRect(-73, -30, aVida1, barHigh);
+                vida1.endFill();
+                vida1.x = app.renderer.width / 6.1;
+                vida1.y = app.renderer.height / 9;
+                vida1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                
+                fondo1.clear()
+                fondo1.lineStyle(3, line1);
+                fondo1.beginFill(line1);
+                fondo1.drawRect(-73, -30, barWidht, barHigh);
+                fondo1.endFill();
+                fondo1.x = app.renderer.width / 6.1;
+                fondo1.y = app.renderer.height / 9;
+                fondo1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                
+                vida2.clear();
+                vida2.lineStyle(3, line2);
+                vida2.beginFill(fill2);
+                vida2.drawRect(-73, -30, aVida2, barHigh);
+                vida2.endFill();
+                vida2.x = app.renderer.width / 1.5;
+                vida2.y = app.renderer.height / 9;
+                vida2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+                
+                fondo2.clear()
+                fondo2.lineStyle(3, line2);
+                fondo2.beginFill(line2);
+                fondo2.drawRect(-73, -30, barWidht, barHigh);
+                fondo2.endFill();
+                fondo2.x = app.renderer.width / 1.5;
+                fondo2.y = app.renderer.height / 9;
+                fondo2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000);
+
             }
             /*player1.on('pointerdown', () => {
 
@@ -494,6 +536,7 @@
 
             function combate(){
 
+                myBreak = true;
                 switch(miMovimento){
 
                     case 1:
@@ -506,14 +549,14 @@
 
                         jugador2.Vida -= (20 * jugador1.Ataque) / jugador2.Defensa
                         if(jugador2.Vida < 0) jugador2.Vida = 0
-                        golpe = True
+                        golpe = true
                         break;
 
                     case 3:
 
                         jugador2.Vida -= (30 * jugador1.Ataque) / jugador2.Defensa
                         if(jugador2.Vida < 0) jugador2.Vida = 0
-                        golpe = True
+                        golpe = true
                         break;
 
                     case 4:
@@ -521,64 +564,218 @@
                         break;
 
                 }
-                var suMovimiento = Math.floor((Math.random() * 4) + 1);
-                switch(suMovimiento){
+                player1.textures = framesAtk1;
+                player1.play();
+                var first = true;
+                var ready = false;
+                tic.start();
+                tic.add(() => {
 
-                case 1:
+                    if(golpe){
 
-                    jugador2.Defensa += 1;
-                    break;
+                        if(ready){
 
-                case 2:
+                            if(!(aVida1 <= ((jugador1.Vida * barWidht) / jugador1.VidaMax))) 
+                                aVida1--;
+                            if(!(aVida2 <= ((jugador2.Vida * barWidht) / jugador2.VidaMax)))
+                                aVida2--;
 
-                    break;
+                            if(((aVida1 * 100) / barWidht) > 45){
 
-                case 3:
+                                line1 = healts.high.line;
+                                fill1 = healts.high.fill;
 
-                    jugador1.Vida -= (20 * jugador2.Ataque) / jugador1.Defensa;
-                    if(jugador1.Vida < 0) jugador1.Vida = 0;
-                    golpe = True;
-                    break;
+                            }else if (((aVida1 * 100) / barWidht) > 20){
 
-                case 4:
+                                line1 = healts.mid.line;
+                                fill1 = healts.mid.fill;
 
-                    jugador2.Vida -= 30;
-                    if(jugador2.Vida < 0) jugador2.Vida = 0;
-                    jugador2.Defensa += 1.5;
-                    jugador2.Ataque += 0.5;
-                    golpe = True
-                    break;
+                            }else{
+
+                                line1 = healts.low.line;
+                                fill1 = healts.low.fill;
+
+                            }
+
+                            if(((aVida2 * 100) / barWidht) > 45){
+
+                                line2 = healts.high.line;
+                                fill2 = healts.high.fill;
+
+                            }else if (((aVida2 * 100) / barWidht) > 20){
+
+                                line2 = healts.mid.line;
+                                fill2 = healts.mid.fill;
+
+                            }else{
+
+                                line2 = healts.low.line;
+                                fill2 = healts.low.fill;
+
+                            }
+                            animateHealtBars();
+                            if(player2.currentFrame == (player2.totalFrames - 1)){
+
+                                golpe == false;
+                                setTimeout(function(){
+
+                                    player2.textures = frames2;
+                                    player2.play();
+                                    tic.stop();
+                                    first = true;
+                                    secondTurn();
+
+                                }, 500);
+
+                            }
+
+                        }
+                        if (first){
+
+                            player2.textures = framesDmg2;
+                            player2.play();
+                            setTimeout(function(){ready = true; first = false;}, 1500)
+
+                        }
+
+                    }
+                    if(player1.currentFrame == (player1.totalFrames - 1)) {
+                                
+                        player1.textures = frames1;
+                        player1.play();
+                        if(!golpe) secondTurn();
+
+                    }
+
+                });
+                
+            }
+
+            function secondTurn(){
+
+                if(myBreak){
+
+                    myBreak = false;
+                    var suMovimiento = Math.floor((Math.random() * 4) + 1);
+                    console.log(suMovimiento);
+                    switch(suMovimiento){
+
+                        case 1:
+
+                            jugador2.Defensa += 1;
+                            break;
+
+                        case 2:
+
+                            break;
+
+                        case 3:
+
+                            jugador1.Vida -= (20 * jugador2.Ataque) / jugador1.Defensa;
+                            if(jugador1.Vida < 0) jugador1.Vida = 0;
+                            golpe = true;
+                            break;
+
+                        case 4:
+
+                            jugador2.Vida -= 30;
+                            if(jugador2.Vida < 0) jugador2.Vida = 0;
+                            jugador2.Defensa += 1.5;
+                            jugador2.Ataque += 0.5;
+                            golpe = true
+                            break;
+
+                    }
+                    
+                    player2.stop();
+                    player2.textures = framesAtk2;
+                    player2.play();
+                    var first = true;
+                    var ready = false;
+                    tic.start();
+                    tic.add(() => {
+
+                        if(golpe){
+
+                            if(ready){
+
+                                if(!(aVida1 <= ((jugador1.Vida * barWidht) / jugador1.VidaMax))) 
+                                    aVida1--;
+                                if(!(aVida2 <= ((jugador2.Vida * barWidht) / jugador2.VidaMax)))
+                                    aVida2--;
+
+                                if(((aVida1 * 100) / barWidht) > 45){
+
+                                    line1 = healts.high.line;
+                                    fill1 = healts.high.fill;
+
+                                }else if (((aVida1 * 100) / barWidht) > 20){
+
+                                    line1 = healts.mid.line;
+                                    fill1 = healts.mid.fill;
+
+                                }else{
+
+                                    line1 = healts.low.line;
+                                    fill1 = healts.low.fill;
+
+                                }
+
+                                if(((aVida2 * 100) / barWidht) > 45){
+
+                                    line2 = healts.high.line;
+                                    fill2 = healts.high.fill;
+
+                                }else if (((aVida2 * 100) / barWidht) > 20){
+
+                                    line2 = healts.mid.line;
+                                    fill2 = healts.mid.fill;
+
+                                }else{
+
+                                    line2 = healts.low.line;
+                                    fill2 = healts.low.fill;
+
+                                }
+                                animateHealtBars();
+                                if(player1.currentFrame == (player1.totalFrames - 1)){
+
+                                    golpe == false;
+                                    setTimeout(function(){
+
+                                        player1.textures = frames1;
+                                        player1.play();
+                                        tic.stop();
+                                        myBreak = true;
+                                        return;
+
+                                    }, 500);
+
+                                }
+
+                            }
+                            if (first){
+
+                                player1.textures = framesDmg1;
+                                player1.play();
+                                setTimeout(function(){ready = true; first = false;}, 1500)
+
+                            }
+
+                        }
+                        if(player2.currentFrame == (player2.totalFrames - 1)) {
+                                    
+                            player2.textures = frames2;
+                            player2.play();
+                            if(!golpe) tic.stop();
+
+                        }
+
+                    });
 
                 }
 
             }
-            
-            /*const texture = PIXI.Texture.from('sprite.png');
-            const texture1 = PIXI.Texture;
-            img = new PIXI.Sprite(texture);
-            img.x = app.renderer.width / 2;
-            img.y = app.renderer.height / 2;
-            img.anchor.x = 0.5;
-            img.anchor.y = 0.5;
-            img.alpha = 0.5;
-            app.stage.addChild(img);
-
-            img.interactive = true
-            img.buttonMode = true
-
-            img.on('pointertap', () => {
-
-                img.texture = texture1;
-                setTimeout(function(){ 
-
-                    img.texture = texture;
-
-                }, 2000);
-
-            });
-
-            */
-        
 
         </script>
 
