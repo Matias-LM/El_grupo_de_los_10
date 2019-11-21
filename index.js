@@ -160,14 +160,6 @@ function onplayer1Load() {
     .then(res => {
         console.log(res.data);
     });
-    setTimeout(function(){
-
-        axios.get('http://localhost:4000/api')
-        .then(res => {
-            console.log(res.data);
-        });
-
-    }, 2000);
     animateSprite();
 
 }
