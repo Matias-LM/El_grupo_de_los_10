@@ -125,8 +125,10 @@
             var habilidad2Xp, habilidad3Xp, habilidad4Xp;
             var mobile = false;
             const ticker = new PIXI.Ticker();
-            var tic = new PIXI.Ticker();
-            tic.speed = 0.7;
+            var tic1 = new PIXI.Ticker();
+            tic1.speed = 0.7;
+            var tic2 = new PIXI.Ticker();
+            tic2.speed = 0.7;
 
             app.loader
                 .add('corti', 'assets/corti1/spritesheet.json')
@@ -404,6 +406,7 @@
                     textWidht = 0.75;
 
                 }
+                ///
 
                 animateHealtBars();
 
@@ -443,12 +446,14 @@
                 Habilidad4.beginFill(0xdfdfdf)
                 Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
                 Habilidad4.endFill();
+                ///
 
                 //Texto
                 nombre1.scale = new PIXI.Point(textWidht, 1);
                 nombre2.scale = new PIXI.Point(textWidht, 1);
                 nombre3.scale = new PIXI.Point(textWidht, 1);
                 nombre4.scale = new PIXI.Point(textWidht, 1);
+                ///
                 
             };
 
@@ -568,8 +573,8 @@
                 player1.play();
                 var first = true;
                 var ready = false;
-                tic.start();
-                tic.add(() => {
+                tic1.start();
+                tic1.add(() => {
 
                     if(golpe){
 
@@ -616,12 +621,12 @@
                             animateHealtBars();
                             if(player2.currentFrame == (player2.totalFrames - 1)){
 
-                                golpe == false;
+                                golpe = false;
                                 setTimeout(function(){
 
                                     player2.textures = frames2;
                                     player2.play();
-                                    tic.stop();
+                                    tic1.stop();
                                     first = true;
                                     secondTurn();
 
@@ -643,7 +648,12 @@
                                 
                         player1.textures = frames1;
                         player1.play();
-                        if(!golpe) secondTurn();
+                        if(!golpe){
+                            
+                            tic1.stop();
+                            secondTurn();
+
+                        }
 
                     }
 
@@ -667,6 +677,7 @@
 
                         case 2:
 
+                            console.log('2');
                             break;
 
                         case 3:
@@ -682,92 +693,91 @@
                             if(jugador2.Vida < 0) jugador2.Vida = 0;
                             jugador2.Defensa += 1.5;
                             jugador2.Ataque += 0.5;
-                            golpe = true
                             break;
 
                     }
-                    
-                    player2.stop();
                     player2.textures = framesAtk2;
                     player2.play();
                     var first = true;
                     var ready = false;
-                    tic.start();
-                    tic.add(() => {
+                    tic2.start();
+                    tic2.add(() => {
 
-                        if(golpe){
+                        if(ready){
 
-                            if(ready){
+                            if(!(aVida1 <= ((jugador1.Vida * barWidht) / jugador1.VidaMax))) 
+                                aVida1--;
+                            if(!(aVida2 <= ((jugador2.Vida * barWidht) / jugador2.VidaMax)))
+                                aVida2--;
 
-                                if(!(aVida1 <= ((jugador1.Vida * barWidht) / jugador1.VidaMax))) 
-                                    aVida1--;
-                                if(!(aVida2 <= ((jugador2.Vida * barWidht) / jugador2.VidaMax)))
-                                    aVida2--;
+                            if(((aVida1 * 100) / barWidht) > 45){
 
-                                if(((aVida1 * 100) / barWidht) > 45){
+                                line1 = healts.high.line;
+                                fill1 = healts.high.fill;
 
-                                    line1 = healts.high.line;
-                                    fill1 = healts.high.fill;
+                            }else if (((aVida1 * 100) / barWidht) > 20){
 
-                                }else if (((aVida1 * 100) / barWidht) > 20){
+                                line1 = healts.mid.line;
+                                fill1 = healts.mid.fill;
 
-                                    line1 = healts.mid.line;
-                                    fill1 = healts.mid.fill;
+                            }else{
 
-                                }else{
-
-                                    line1 = healts.low.line;
-                                    fill1 = healts.low.fill;
-
-                                }
-
-                                if(((aVida2 * 100) / barWidht) > 45){
-
-                                    line2 = healts.high.line;
-                                    fill2 = healts.high.fill;
-
-                                }else if (((aVida2 * 100) / barWidht) > 20){
-
-                                    line2 = healts.mid.line;
-                                    fill2 = healts.mid.fill;
-
-                                }else{
-
-                                    line2 = healts.low.line;
-                                    fill2 = healts.low.fill;
-
-                                }
-                                animateHealtBars();
-                                if(player1.currentFrame == (player1.totalFrames - 1)){
-
-                                    golpe == false;
-                                    setTimeout(function(){
-
-                                        player1.textures = frames1;
-                                        player1.play();
-                                        tic.stop();
-                                        myBreak = true;
-                                        return;
-
-                                    }, 500);
-
-                                }
+                                line1 = healts.low.line;
+                                fill1 = healts.low.fill;
 
                             }
-                            if (first){
 
-                                player1.textures = framesDmg1;
-                                player1.play();
-                                setTimeout(function(){ready = true; first = false;}, 1500)
+                            if(((aVida2 * 100) / barWidht) > 45){
+
+                                line2 = healts.high.line;
+                                fill2 = healts.high.fill;
+
+                            }else if (((aVida2 * 100) / barWidht) > 20){
+
+                                line2 = healts.mid.line;
+                                fill2 = healts.mid.fill;
+
+                            }else{
+
+                                line2 = healts.low.line;
+                                fill2 = healts.low.fill;
+
+                            }
+                            animateHealtBars();
+                            if(player1.currentFrame == (player1.totalFrames - 1)){
+
+                                golpe == false;
+                                setTimeout(function(){
+
+                                    console.log('popo');
+                                    player1.textures = frames1;
+                                    player1.play();
+                                    tic2.stop();
+                                    myBreak = true;
+                                    return;
+
+                                }, 500);
 
                             }
 
                         }
+                        if (first){
+
+                            if(golpe){
+
+                                player1.textures = framesDmg1;
+                                player1.play();
+
+                            }
+                            setTimeout(function(){ready = true; first = false;}, 1500)
+
+                        }
                         if(player2.currentFrame == (player2.totalFrames - 1)) {
                                     
+                            console.log('popo');
                             player2.textures = frames2;
                             player2.play();
-                            if(!golpe) tic.stop();
+                            if(!golpe) tic2.stop();
 
                         }
 
