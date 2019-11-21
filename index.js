@@ -156,10 +156,37 @@ function onplayer1Load() {
         framesDmg2.push(PIXI.Texture.from(`diNardoDmg2-${i}.png`));
 
     //axios.get('https://el-grupo-de-los-10.herokuapp.com/api')
-    axios.get('http://localhost:4000/api')
+    /*axios.get('http://localhost:4000/api')
     .then(res => {
         console.log(res.data);
-    });
+    });*/
+
+    // if user is running mozilla then use it's built-in WebSocket
+    window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+    var connection = new WebSocket('ws://el-grupo-de-los-10.herokuapp.com:80');
+    connection.onopen = function () {
+        // first we want users to enter their names
+      };
+
+    connection.onmessage = function (message) {
+        
+        // try to parse JSON message. Because we know that the server
+        // always returns JSON this should work without any problem but
+        // we should make sure that the massage is not chunked or
+        // otherwise damaged.
+        console.log(message);
+        try {
+            var json = JSON.parse(message.data);
+        } catch (e) {
+            console.log('Invalid JSON: ', message.data);
+            return;
+        }
+        console.log(json);
+
+    }
+
+
     animateSprite();
 
 }
