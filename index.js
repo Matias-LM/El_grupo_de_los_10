@@ -164,7 +164,7 @@ function onplayer1Load() {
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-    var connection = new WebSocket('wss://127.0.0.1:4000');
+    var connection = new WebSocket('wss://el-grupo-de-los-10.herokuapp.com/');
     connection.onopen = function () {
         // first we want users to enter their names
       };
