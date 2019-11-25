@@ -393,7 +393,12 @@ Habilidad1.buttonMode = true
 Habilidad1
     .on('pointerover', habilidad1Over)
     .on('pointerout', habilidad1Out)
-    .on('pointerdown', combate);
+    .on('pointerdown', () => {
+
+        miMovimento = 1;
+        combate();
+
+    });
 
 let Habilidad2 = new PIXI.Graphics();
 app.stage.addChild(Habilidad2);
@@ -402,7 +407,12 @@ Habilidad2.buttonMode = true
 Habilidad2
     .on('pointerover', habilidad2Over)
     .on('pointerout', habilidad2Out)
-    .on('pointerdown', combate);
+    .on('pointerdown', () => {
+
+        miMovimento = 2;
+        combate();
+
+    });
 
 let Habilidad3 = new PIXI.Graphics();
 app.stage.addChild(Habilidad3);
@@ -411,7 +421,12 @@ Habilidad3.buttonMode = true
 Habilidad3
     .on('pointerover', habilidad3Over)
     .on('pointerout', habilidad3Out)
-    .on('pointerdown', combate);
+    .on('pointerdown', () => {
+
+        miMovimento = 3;
+        combate();
+
+    });
 
 let Habilidad4 = new PIXI.Graphics();
 app.stage.addChild(Habilidad4);
@@ -420,7 +435,12 @@ Habilidad4.buttonMode = true
 Habilidad4
     .on('pointerover', habilidad4Over)
     .on('pointerout', habilidad4Out)
-    .on('pointerdown', combate);
+    .on('pointerdown', () => {
+
+        miMovimento = 4;
+        combate();
+
+    });
 //
 
 //Interacciones con el mouse
@@ -431,7 +451,6 @@ function habilidad1Over(){
     Habilidad1.beginFill(0xa0faa0)
     Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
     Habilidad1.endFill();
-    miMovimento = 1;
 
 }
 
@@ -452,7 +471,6 @@ function habilidad2Over(){
     Habilidad2.beginFill(0xa0faa0)
     Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
     Habilidad2.endFill();
-    miMovimento = 2;
 
 }
 
@@ -473,8 +491,6 @@ function habilidad3Over(){
     Habilidad3.beginFill(0xa0faa0)
     Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
     Habilidad3.endFill();
-    miMovimento = 3;
-
 }
 
 function habilidad3Out(){
@@ -494,7 +510,6 @@ function habilidad4Over(){
     Habilidad4.beginFill(0xa0faa0)
     Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
     Habilidad4.endFill();
-    miMovimento = 4;
 
 }
 
