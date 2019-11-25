@@ -1,6 +1,7 @@
 
 //Game variables
 var miMovimento;
+var miPersonaje, suPersonaje;
 var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
 var line1, line2, fill1, fill2;
 const frames1 = [];
@@ -10,7 +11,9 @@ const frames2 = [];
 const framesAtk2 = [];
 const framesDmg2 = [];
 var golpe = false;
+let msg;
 var myBreak;
+var myMatch;
 let _w = window.innerWidth;
 let _h = window.innerHeight;
 var jugador1 = {
@@ -59,6 +62,7 @@ fill1 = healts.high.fill;
 fill2 = healts.high.fill;
 //
 
+var nombre1, nombre2, nombre3, nombre4;
 //Iniciar la aplicacion
 const app = new PIXI.Application({
 
@@ -68,7 +72,6 @@ const app = new PIXI.Application({
 });
 /*document.body.appendChild(app.view);
 app.renderer.antialias = true;*/
-//
 
 //Iniciar la aplicacion
 const fight = new PIXI.Application({
@@ -84,13 +87,126 @@ asd.style = {fill: 0xffffff};
 asd.x = 0;
 asd.y = 0;
 fight.stage.addChild(asd);
-setTimeout(function(){
-    
-    document.body.appendChild(app.view);
-    app.renderer.antialias = true;
+window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-}, 5000);
+//var connection = new WebSocket('wss://el-grupo-de-los-10.herokuapp.com/');
+var connection = new WebSocket('ws://localhost:4000/');
+connection.onopen = function () {
+    // first we want users to enter their names
+  };
+
+connection.onmessage = function (message) {
+    
+    try {
+
+        var auxMsg = JSON.parse(message.data).msg;
+        if(Number.isInteger(auxMsg.match)) {
+            
+            msg = JSON.parse(message.data).msg;
+            myMatch = msg.match;
+            if(msg.player - 1){
+
+                miPersonaje = 1;
+                suPersonaje = 0;
+
+            }else{
+
+                miPersonaje = 0;
+                suPersonaje = 1
+
+            }
+            console.log("matched");
+            document.body.appendChild(app.view);
+            app.renderer.antialias = true;
+            //Cargar sprites
+            app.loader
+                .add(msg.miPj.routes.standar.sheet)
+                .add(msg.miPj.routes.atack.sheet)
+                .add(msg.miPj.routes.damage.sheet)
+                .add(msg.suPj.standar.sheet)
+                .add(msg.suPj.atack.sheet)
+                .add(msg.suPj.damage.sheet)
+                .load(onplayer1Load);
+
+        }else if(Number.isInteger(auxMsg.move)){
+
+            console.log(auxMsg.move);
+
+        };
+
+    } catch (e) {
+
+        console.log(e);
+        return;
+
+    }
+
+}
 //
+
+
+function onplayer1Load() {
+
+    //Sprites jugador 1
+    msg.miPj.routes.standar.sprites.map(function(sprite){
+        frames1.push(PIXI.Texture.from(sprite)); 
+    })
+    player1 = new PIXI.AnimatedSprite(frames1);
+    player1.anchor.set(0.5);
+    player1.animationSpeed = 0.1;
+    player1.play();
+    app.stage.addChild(player1);
+    player1.interactive = true
+
+    msg.miPj.routes.atack.sprites.map(function(sprite){
+        framesAtk1.push(PIXI.Texture.from(sprite));
+    });
+    msg.miPj.routes.damage.sprites.map(function(sprite){
+        framesDmg1.push(PIXI.Texture.from(sprite));
+    });
+    //
+
+    //Sprites jugador 2
+    msg.suPj.standar.sprites.map(function(sprite){
+        frames2.push(PIXI.Texture.from(sprite));
+    });
+    player2 = new PIXI.AnimatedSprite(frames2);
+    player2.anchor.set(0.5);
+    player2.animationSpeed = 0.1;
+    player2.play();
+    app.stage.addChild(player2);
+    player2.interactive = true
+
+    msg.suPj.atack.sprites.map(function(sprite){
+        framesAtk2.push(PIXI.Texture.from(sprite));
+    });
+    msg.suPj.damage.sprites.map(function(sprite){
+        framesDmg2.push(PIXI.Texture.from(sprite));
+    });
+    //
+
+    //Inicializar texto
+    nombre1 = new PIXI.Text(msg.miPj.skills[0]);
+    nombre1.x = ((Habilidad1.getBounds().width - nombre1.getBounds().width) + (nombre1.getBounds().width / 2)) + ((nombre1.getBounds().width / 10) - 20);
+    nombre1.y = -20;
+    Habilidad1.addChild(nombre1);
+    nombre2 = new PIXI.Text(msg.miPj.skills[1]);
+    nombre2.x = ((Habilidad2.getBounds().width - nombre2.getBounds().width) + (nombre2.getBounds().width / 2)) + ((nombre2.getBounds().width / 10) - 10);
+    nombre2.y = -20;
+    Habilidad2.addChild(nombre2);
+    nombre3 = new PIXI.Text(msg.miPj.skills[2]);
+    nombre3.x = ((Habilidad3.getBounds().width - nombre3.getBounds().width) + (nombre3.getBounds().width / 2)) + (nombre3.getBounds().width / 10);
+    nombre3.y = -20;
+    Habilidad3.addChild(nombre3);
+    nombre4 = new PIXI.Text(msg.miPj.skills[3]);
+    nombre4.x = ((Habilidad4.getBounds().width - nombre4.getBounds().width) + (nombre4.getBounds().width / 2)) + ((nombre4.getBounds().width / 10) + 10);
+    nombre4.y = -20;
+    Habilidad4.addChild(nombre4);
+    //
+
+    animateAll()
+
+}
 
 //Responsive design variables
 var barHigh = 30 - (app.screen.height / 17);
@@ -108,102 +224,7 @@ var tic2 = new PIXI.Ticker();
 tic2.speed = 0.7;
 //
 
-//Cargar sprites
-app.loader
-    .add('corti', 'assets/corti1/spritesheet.json')
-    .add('cortiAtk', 'assets/cortiAtk1/spritesheet.json')
-    .add('cortiDmg', 'assets/cortiDmg1/spritesheet.json')
-    .add('diNardo', 'assets/diNardo2/spritesheet.json')
-    .add('diNardoAtk', 'assets/diNardoAtk2/spritesheet.json')
-    .add('diNardoDmg', 'assets/diNardoDmg2/spritesheet.json')
-    .load(onplayer1Load);
-
-
-function onplayer1Load() {
-
-    for (let i = 0; i < 6; i++)
-        frames1.push(PIXI.Texture.from(`corti1-${i}.png`)); 
-
-    player1 = new PIXI.AnimatedSprite(frames1);
-    player1.anchor.set(0.5);
-    player1.animationSpeed = 0.1;
-    player1.play();
-
-    app.stage.addChild(player1);
-
-    player1.interactive = true
-
-    for (let i = 0; i < 10; i++)
-        framesAtk1.push(PIXI.Texture.from(`cortiAtk1-${i}.png`));
-    for (let i = 0; i < 12; i++)
-        framesDmg1.push(PIXI.Texture.from(`cortiDmg1-${i}.png`));
-
-    for (let i = 0; i < 6; i++)
-        frames2.push(PIXI.Texture.from(`diNardo2-${i}.png`)); 
-
-    player2 = new PIXI.AnimatedSprite(frames2);
-    player2.anchor.set(0.5);
-    player2.animationSpeed = 0.1;
-    player2.play();
-
-    app.stage.addChild(player2);
-
-    player2.interactive = true
-
-    for (let i = 0; i < 17; i++)
-        framesAtk2.push(PIXI.Texture.from(`diNardoAtk2-${i}.png`));
-    for (let i = 0; i < 10; i++)
-        framesDmg2.push(PIXI.Texture.from(`diNardoDmg2-${i}.png`));
-
-    //axios.get('https://el-grupo-de-los-10.herokuapp.com/api')
-    /*axios.get('http://localhost:4000/api')
-    .then(res => {
-        console.log(res.data);
-    });*/
-
-    // if user is running mozilla then use it's built-in WebSocket
-    window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-    var connection = new WebSocket('wss://el-grupo-de-los-10.herokuapp.com/');
-    connection.onopen = function () {
-        // first we want users to enter their names
-      };
-
-    connection.onmessage = function (message) {
-        
-        // try to parse JSON message. Because we know that the server
-        // always returns JSON this should work without any problem but
-        // we should make sure that the massage is not chunked or
-        // otherwise damaged.
-        console.log(message);
-        try {
-            var json = JSON.parse(message.data);
-        } catch (e) {
-            console.log('Invalid JSON: ', message.data);
-            return;
-        }
-        console.log(json);
-
-    }
-
-
-    animateSprite();
-
-}
-//
-
 //Responsive
-function animateSprite() {
-
-    player1.x = app.screen.width / 4.3;
-    player1.y = app.screen.height / 3;
-    player1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-    player2.x = app.screen.width / 1.3;
-    player2.y = app.screen.height / 3;
-    player2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
-
-}
-
 function animateAll() {
 
     var responsiveButtonsY;
@@ -241,6 +262,15 @@ function animateAll() {
     ///
 
     animateHealtBars();
+
+    //Sprites
+    player1.x = app.screen.width / 4.3;
+    player1.y = app.screen.height / 3;
+    player1.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+    player2.x = app.screen.width / 1.3;
+    player2.y = app.screen.height / 3;
+    player2.scale = new PIXI.Point(app.screen.width / 1000, app.screen.height / 1000)
+    //
 
     //Botones
     Habilidad1.x = app.renderer.width / 4.3;
@@ -336,7 +366,6 @@ function resize(){
     _w = window.innerWidth;
     _h = window.innerHeight;
     app.renderer.resize(_w, _h);
-    animateSprite();
     animateAll();
 
 }
@@ -480,30 +509,10 @@ function habilidad4Out(){
 }
 //
 
-//Inicializar texto
-const nombre1 = new PIXI.Text('Defensa dorada');
-nombre1.x = ((Habilidad1.getBounds().width - nombre1.getBounds().width) + (nombre1.getBounds().width / 2)) + ((nombre1.getBounds().width / 10) - 20);
-nombre1.y = -20;
-Habilidad1.addChild(nombre1);
-const nombre2 = new PIXI.Text('Lanza oro');
-nombre2.x = ((Habilidad2.getBounds().width - nombre2.getBounds().width) + (nombre2.getBounds().width / 2)) + ((nombre2.getBounds().width / 10) - 10);
-nombre2.y = -20;
-Habilidad2.addChild(nombre2);
-const nombre3 = new PIXI.Text('Batiseñal');
-nombre3.x = ((Habilidad3.getBounds().width - nombre3.getBounds().width) + (nombre3.getBounds().width / 2)) + (nombre3.getBounds().width / 10);
-nombre3.y = -20;
-Habilidad3.addChild(nombre3);
-const nombre4 = new PIXI.Text('Refugio');
-nombre4.x = ((Habilidad4.getBounds().width - nombre4.getBounds().width) + (nombre4.getBounds().width / 2)) + ((nombre4.getBounds().width / 10) + 10);
-nombre4.y = -20;
-Habilidad4.addChild(nombre4);
-//
-
-animateAll();
-
 function combate(){
 
     myBreak = true;
+    connection.send(JSON.stringify({msg:{movimiento: miMovimento, match:myMatch, jugador: suPersonaje}}));
     switch(miMovimento){
 
         case 1:
