@@ -1,6 +1,7 @@
 function combate(){
 
     myBreak = true;
+    bloqueo = true;
     connection.send(JSON.stringify({msg:{movimiento: miMovimento, match:myMatch, jugador: suPersonaje}}));
     switch(miMovimento){
 
@@ -242,6 +243,7 @@ function secondTurn(){
             }
 
         });
+        bloqueo = false;
 
     }
 

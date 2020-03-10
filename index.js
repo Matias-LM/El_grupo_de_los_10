@@ -1,6 +1,7 @@
 
 //Game variables
 var miMovimento;
+var bloqueo = false;
 var miPersonaje, suPersonaje;
 var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
 var line1, line2, fill1, fill2;
@@ -184,7 +185,7 @@ Habilidad1
     .on('pointerdown', () => {
 
         miMovimento = 1;
-        combate();
+        if (!bloqueo) combate();
 
     });
 
@@ -196,7 +197,7 @@ Habilidad2
     .on('pointerdown', () => {
 
         miMovimento = 2;
-        combate();
+        if (!bloqueo) combate();
 
     });
 
@@ -208,7 +209,7 @@ Habilidad3
     .on('pointerdown', () => {
 
         miMovimento = 3;
-        combate();
+        if (!bloqueo) combate();
 
     });
 
@@ -220,7 +221,7 @@ Habilidad4
     .on('pointerdown', () => {
 
         miMovimento = 4;
-        combate();
+        if (!bloqueo) combate();
 
     });
 //
@@ -228,80 +229,113 @@ Habilidad4
 //Interacciones con el mouse
 function habilidad1Over(){
 
-    Habilidad1.clear()
-    Habilidad1.lineStyle(3, 0xf3ffed);
-    Habilidad1.beginFill(0xa0faa0)
-    Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
-    Habilidad1.endFill();
+    if (!bloqueo) {
+
+        Habilidad1.clear()
+        Habilidad1.lineStyle(3, 0xf3ffed);
+        Habilidad1.beginFill(0xa0faa0)
+        Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
+        Habilidad1.endFill();
+
+    }
 
 }
 
 function habilidad1Out(){
 
-    Habilidad1.clear()
-    Habilidad1.lineStyle(3, 0xf3ffed);
-    Habilidad1.beginFill(0xdfdfdf)
-    Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
-    Habilidad1.endFill();
+    if (!bloqueo) {
+
+        Habilidad1.clear()
+        Habilidad1.lineStyle(3, 0xf3ffed);
+        Habilidad1.beginFill(0xdfdfdf)
+        Habilidad1.drawRect(-110, -50, buttonWidht, buttonHigh);
+        Habilidad1.endFill();
     
+    }
+
 }
 
 function habilidad2Over(){
 
-    Habilidad2.clear()
-    Habilidad2.lineStyle(3, 0xf3ffed);
-    Habilidad2.beginFill(0xa0faa0)
-    Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
-    Habilidad2.endFill();
+    if (!bloqueo) {
+
+        Habilidad2.clear()
+        Habilidad2.lineStyle(3, 0xf3ffed);
+        Habilidad2.beginFill(0xa0faa0)
+        Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
+        Habilidad2.endFill();
+
+    }
 
 }
 
 function habilidad2Out(){
 
-    Habilidad2.clear()
-    Habilidad2.lineStyle(3, 0xf3ffed);
-    Habilidad2.beginFill(0xdfdfdf)
-    Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
-    Habilidad2.endFill();
+    if (!bloqueo) {
+
+        Habilidad2.clear()
+        Habilidad2.lineStyle(3, 0xf3ffed);
+        Habilidad2.beginFill(0xdfdfdf)
+        Habilidad2.drawRect(habilidad2Xp, -50, buttonWidht, buttonHigh);
+        Habilidad2.endFill();
+
+    }
 
 }
 
 function habilidad3Over(){
 
-    Habilidad3.clear()
-    Habilidad3.lineStyle(3, 0xf3ffed);
-    Habilidad3.beginFill(0xa0faa0)
-    Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
-    Habilidad3.endFill();
+    if (!bloqueo) {
+
+        Habilidad3.clear()
+        Habilidad3.lineStyle(3, 0xf3ffed);
+        Habilidad3.beginFill(0xa0faa0)
+        Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
+        Habilidad3.endFill();
+
+    }
+
 }
 
 function habilidad3Out(){
 
-    Habilidad3.clear()
-    Habilidad3.lineStyle(3, 0xf3ffed);
-    Habilidad3.beginFill(0xdfdfdf)
-    Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
-    Habilidad3.endFill();
+    if (!bloqueo) {
+
+        Habilidad3.clear()
+        Habilidad3.lineStyle(3, 0xf3ffed);
+        Habilidad3.beginFill(0xdfdfdf)
+        Habilidad3.drawRect(habilidad3Xp, -50, buttonWidht, buttonHigh);
+        Habilidad3.endFill();
+
+    }
 
 }
     
 function habilidad4Over(){
 
-    Habilidad4.clear()
-    Habilidad4.lineStyle(3, 0xf3ffed);
-    Habilidad4.beginFill(0xa0faa0)
-    Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
-    Habilidad4.endFill();
+    if (!bloqueo) {
+
+        Habilidad4.clear()
+        Habilidad4.lineStyle(3, 0xf3ffed);
+        Habilidad4.beginFill(0xa0faa0)
+        Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
+        Habilidad4.endFill();
+
+    }
 
 }
 
 function habilidad4Out(){
 
-    Habilidad4.clear()
-    Habilidad4.lineStyle(3, 0xf3ffed);
-    Habilidad4.beginFill(0xdfdfdf)
-    Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
-    Habilidad4.endFill();
+    if (!bloqueo) {
+
+        Habilidad4.clear()
+        Habilidad4.lineStyle(3, 0xf3ffed);
+        Habilidad4.beginFill(0xdfdfdf)
+        Habilidad4.drawRect(habilidad4Xp, -50, buttonWidht, buttonHigh);
+        Habilidad4.endFill();
+
+    }
 
 }
 //

@@ -1,7 +1,7 @@
 window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-var connection = new WebSocket('wss://el-grupo-de-los-10.herokuapp.com/');
-//var connection = new WebSocket('ws://localhost:4000/');
+//var connection = new WebSocket('wss://el-grupo-de-los-10.herokuapp.com/');
+var connection = new WebSocket('ws://localhost:4000/');
 
 connection.onopen = function () {
     // first we want users to enter their names
