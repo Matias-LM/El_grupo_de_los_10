@@ -1,4 +1,4 @@
-function combate(){
+/*function combate(){
 
     myBreak = true;
     bloqueo = true;
@@ -112,6 +112,7 @@ function combate(){
             if(!golpe){
                 
                 tic1.stop();
+                if(player2.Vida == 0 || player1.Vida == 0) document.body.appendChild(pairing.view);
                 secondTurn();
 
             }
@@ -243,8 +244,9 @@ function secondTurn(){
             }
 
         });
+        if(player2.Vida == 0 || player1.Vida == 0) document.body.appendChild(pairing.view);
         bloqueo = false;
 
     }
 
-}
+}*/

@@ -28,8 +28,6 @@ connection.onmessage = function (message) {
 
             }
             console.log("matched");
-            document.body.appendChild(app.view);
-            app.renderer.antialias = true;
             //Cargar sprites
             app.loader
                 .add(msg.miPj.routes.standar.sheet)
@@ -42,6 +40,7 @@ connection.onmessage = function (message) {
 
         }else if(Number.isInteger(auxMsg.move)){
 
+            suMovimento = auxMsg;
             console.log(auxMsg.move);
 
         };

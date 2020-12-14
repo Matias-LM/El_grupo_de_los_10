@@ -1,0 +1,275 @@
+{
+	"frames": {
+		"percuAtk2-0.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-1.png": {
+			"frame": {
+				"x": 513,
+				"y": 1,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-10.png": {
+			"frame": {
+				"x": 1025,
+				"y": 1,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-11.png": {
+			"frame": {
+				"x": 1,
+				"y": 513,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-12.png": {
+			"frame": {
+				"x": 513,
+				"y": 513,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-2.png": {
+			"frame": {
+				"x": 1025,
+				"y": 513,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-3.png": {
+			"frame": {
+				"x": 1,
+				"y": 1025,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-4.png": {
+			"frame": {
+				"x": 513,
+				"y": 1025,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-5.png": {
+			"frame": {
+				"x": 1025,
+				"y": 1025,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-6.png": {
+			"frame": {
+				"x": 1537,
+				"y": 1,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-7.png": {
+			"frame": {
+				"x": 1537,
+				"y": 513,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-8.png": {
+			"frame": {
+				"x": 1537,
+				"y": 1025,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		},
+		"percuAtk2-9.png": {
+			"frame": {
+				"x": 1,
+				"y": 1537,
+				"w": 510,
+				"h": 510
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 510,
+				"h": 510
+			},
+			"sourceSize": {
+				"w": 510,
+				"h": 510
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 2048,
+			"h": 2048
+		},
+		"scale": "1"
+	}
+}
