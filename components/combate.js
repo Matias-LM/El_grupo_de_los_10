@@ -42,7 +42,7 @@ function anteojos(j){
 
 function accion1(){
 
-    switch(miPj){
+    switch(miPersonaje){
 
         case 1:
 
@@ -142,7 +142,7 @@ function accion1(){
 }
 function accion2(){
 
-    switch(suPj){
+    switch(suPersonaje){
 
         case 1:
 
