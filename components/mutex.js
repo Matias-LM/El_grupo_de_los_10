@@ -87,6 +87,7 @@ function mutax(){
     }
     if(cha1){
 
+        console.log('cha1')
         if (aVida1 > ((jugador1.Vida * barWidht) / jugador1.VidaMax)) 
             aVida1--;
         else if (aVida1 < ((jugador1.Vida * barWidht) / jugador1.VidaMax)) 
@@ -113,6 +114,7 @@ function mutax(){
     }
     if(cha2){
 
+        console.log('cha2')
         if (aVida2 > ((jugador2.Vida * barWidht) / jugador2.VidaMax))
             aVida2--;
         else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax))

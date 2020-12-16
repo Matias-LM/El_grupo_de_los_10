@@ -16,17 +16,8 @@ connection.onmessage = function (message) {
             
             msg = JSON.parse(message.data).msg;
             myMatch = msg.match;
-            if(msg.player - 1){
-
                 miPersonaje = 1;
                 suPersonaje = 0;
-
-            }else{
-
-                miPersonaje = 0;
-                suPersonaje = 1
-
-            }
             console.log("matched");
             //Cargar sprites
             app.loader
