@@ -50,14 +50,14 @@ function accion1(){
 
                 case 1:
         
-                    jugador1.Defensa += 1.5;
-                    jugador1.Velocidad -= 1;
+                    jugador1.stats.Defensa += 1.5;
+                    jugador1.stats.Velocidad -= 1;
                     break;
                 
                 case 2:
         
-                    jugador2.Vida -= (20 * jugador1.Ataque) / jugador2.Defensa
-                    if(jugador2.Vida < 0) jugador2.Vida = 0
+                    jugador2.stats.Vida -= (20 * jugador1.stats.Ataque) / jugador2.stats.Defensa
+                    if(jugador2.stats.Vida < 0) jugador2.stats.Vida = 0
                     act2 = true
                     break;
         
@@ -150,21 +150,21 @@ function accion2(){
 
                 case 1:
         
-                    jugador2.Defensa += 1.5;
-                    jugador2.Velocidad -= 1;
+                    jugador2.stats.Defensa += 1.5;
+                    jugador2.stats.Velocidad -= 1;
                     break;
                 
                 case 2:
         
-                    jugador1.Vida -= (20 * jugador2.Ataque) / jugador1.Defensa
-                    if(jugador1.Vida < 0) jugador1.Vida = 0
+                    jugador1.stats.Vida -= (20 * jugador2.stats.Ataque) / jugador1.stats.Defensa
+                    if(jugador1.stats.Vida < 0) jugador1.stats.Vida = 0
                     act1 = true
                     break;
         
                 case 3:
         
-                    jugador1.Vida -= (30 * jugador2.Ataque) / jugador1.Defensa
-                    if(jugador1.Vida < 0) jugador1.Vida = 0
+                    jugador1.stats.Vida -= (30 * jugador2.stats.Ataque) / jugador1.stats.Defensa
+                    if(jugador1.stats.Vida < 0) jugador1.stats.Vida = 0
                     act1 = true
                     break;
         

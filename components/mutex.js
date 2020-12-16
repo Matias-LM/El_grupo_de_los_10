@@ -37,7 +37,7 @@ function mutax(){
 
                 case 1:
     
-                    jugador2.Defensa += 1;
+                    jugador2.stats.Defensa += 1;
                     break;
     
                 case 2:
@@ -47,17 +47,17 @@ function mutax(){
     
                 case 3:
     
-                    jugador1.Vida -= (20 * jugador2.Ataque) / jugador1.Defensa;
-                    if(jugador1.Vida < 0) jugador1.Vida = 0;
+                    jugador1.stats.Vida -= (20 * jugador2.stats.Ataque) / jugador1.stats.Defensa;
+                    if(jugador1.stats.Vida < 0) jugador1.stats.Vida = 0;
                     act1 = true;
                     break;
     
                 case 4:
     
-                    jugador2.Vida -= 30;
-                    if(jugador2.Vida < 0) jugador2.Vida = 0;
-                    jugador2.Defensa += 1.5;
-                    jugador2.Ataque += 0.5;
+                    jugador2.stats.Vida -= 30;
+                    if(jugador2.stats.Vida < 0) jugador2.stats.Vida = 0;
+                    jugador2.stats.Defensa += 1.5;
+                    jugador2.stats.Ataque += 0.5;
                     act2 = true;
                     break;
     
@@ -88,9 +88,9 @@ function mutax(){
     if(cha1){
 
         console.log('cha1')
-        if (aVida1 > ((jugador1.Vida * barWidht) / jugador1.VidaMax)) 
+        if (aVida1 > ((jugador1.stats.Vida * barWidht) / jugador1.stats.VidaMax)) 
             aVida1--;
-        else if (aVida1 < ((jugador1.Vida * barWidht) / jugador1.VidaMax)) 
+        else if (aVida1 < ((jugador1.stats.Vida * barWidht) / jugador1.stats.VidaMax)) 
             aVida1++;
 
         if(((aVida1 * 100) / barWidht) > 45){
@@ -118,7 +118,7 @@ function mutax(){
         console.log((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax);
         if (aVida2 > ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)){console.log('cha2-'); aVida2--;}
 
-        else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2+'); aVida2++;}
+        else if (aVida2 < ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)){console.log('cha2+'); aVida2++;}
 
         if(((aVida2 * 100) / barWidht) > 45){
 
