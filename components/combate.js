@@ -63,8 +63,8 @@ function accion1(){
         
                 case 3:
         
-                    jugador2.Vida -= (30 * jugador1.Ataque) / jugador2.Defensa
-                    if(jugador2.Vida < 0) jugador2.Vida = 0
+                    jugador2.stats.Vida -= (30 * jugador1.stats.Ataque) / jugador2.stats.Defensa
+                    if(jugador2.stats.Vida < 0) jugador2.stats.Vida = 0
                     act2 = true
                     break;
         

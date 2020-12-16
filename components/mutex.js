@@ -114,9 +114,9 @@ function mutax(){
     }
     if(cha2){
 
-        console.log('jugador2.vida');
-        console.log((jugador2.Vida * barWidht) / jugador2.VidaMax);
-        if (aVida2 > ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2-'); aVida2--;}
+        console.log(jugador2.stats.Vida);
+        console.log((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax);
+        if (aVida2 > ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)){console.log('cha2-'); aVida2--;}
 
         else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2+'); aVida2++;}
 
