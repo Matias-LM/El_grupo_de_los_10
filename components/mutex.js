@@ -114,7 +114,8 @@ function mutax(){
     }
     if(cha2){
 
-        console.log('cha2')
+        console.log('jugador2.vida');
+        console.log((jugador2.Vida * barWidht) / jugador2.VidaMax);
         if (aVida2 > ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2-'); aVida2--;}
 
         else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2+'); aVida2++;}
@@ -123,7 +124,6 @@ function mutax(){
 
             line2 = healts.high.line;
             fill2 = healts.high.fill;
-            console.log('cha2h')
             
         }else if (((aVida2 * 100) / barWidht) > 20){
 
