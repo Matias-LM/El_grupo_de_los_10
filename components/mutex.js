@@ -115,25 +115,27 @@ function mutax(){
     if(cha2){
 
         console.log('cha2')
-        if (aVida2 > ((jugador2.Vida * barWidht) / jugador2.VidaMax))
-            aVida2--;
-        else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax))
-            aVida2++;
+        if (aVida2 > ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2-'); aVida2--;}
+
+        else if (aVida2 < ((jugador2.Vida * barWidht) / jugador2.VidaMax)){console.log('cha2+'); aVida2++;}
 
         if(((aVida2 * 100) / barWidht) > 45){
 
             line2 = healts.high.line;
             fill2 = healts.high.fill;
-
+            console.log('cha2h')
+            
         }else if (((aVida2 * 100) / barWidht) > 20){
 
             line2 = healts.mid.line;
             fill2 = healts.mid.fill;
+            console.log('cha2m')
 
         }else{
 
             line2 = healts.low.line;
             fill2 = healts.low.fill;
+            console.log('cha2l')
 
         }
         animateHealtBars();
