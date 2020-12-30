@@ -1,8 +1,6 @@
 //Game variables
 
     var miPersonaje, suPersonaje, miMovimento, suMovimento;
-    //var player1, player1Atk, player1Dmg, player2, player2Atk, player2Dmg;
-    var golpe = false;
     let msg;
     var myMatch;
 
@@ -51,20 +49,23 @@
 
             corte: 0,
             veneno: 0,
-            aturd: 0,
-            cont: 0,
-            conf: 0
+            aturdimiento: 0,
+            contador: 0,
+            confucion: 0
 
         }
         
     }
 
     //Stat moves
-    var desesperacion, resurrect, grito, electedMov, debate, JdR, refugio, fe, espera, reaccion, elJudio, sleep, elDebuff;
+    var desesperacion, resurrect, grito, electedMov, debate, JdR, refugio, espera, reaccion, elJudio, sleep, elDebuff;
     var con, aRefugio, Acum, rRecuperado, falla, constru, llamada, cardistry;
-    var intereses = 25;
-    var anteojo = false;
+
     var noU = -1;
+    var fe = 0;
+    var intereses = 25;
+
+    var anteojo = false;
     var turnoPasable = true;
 
 //

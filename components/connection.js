@@ -17,7 +17,7 @@ connection.onmessage = function (message) {
             msg = JSON.parse(message.data).msg;
             myMatch = msg.match;
                 miPersonaje = 1;
-                suPersonaje = 0;
+                suPersonaje = 2;
             console.log("matched");
             //Cargar sprites
             app.loader
