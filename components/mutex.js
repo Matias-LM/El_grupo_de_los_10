@@ -128,7 +128,7 @@ function turnEnd(){
 
     //"Resurrecion" y "Buena fe" de Di Nardo
     if((miPersonaje == 2 || suPersonaje == 2) && estatus == 4){
-        
+
         console.log("yes");
         if(fe > 0){
 
@@ -171,8 +171,8 @@ function turnEnd(){
     }
     healtBars();
     estatus++;
-    console.log(status);
-    if(estatus == 6) estatus = 0;
+    console.log(estatus);
+    if(estatus == 6) {estatus = 0; tickEnd.stop}
 
 }
 
