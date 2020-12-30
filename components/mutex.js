@@ -172,7 +172,7 @@ function turnEnd(){
     healtBars();
     estatus++;
     console.log(estatus);
-    if(estatus == 6) {estatus = 0; tickEnd.stop}
+    if(estatus == 6) {estatus = 0; tickEnd.stop();}
 
 }
 
