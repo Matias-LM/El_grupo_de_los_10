@@ -58,7 +58,7 @@
     }
 
     //Stat moves
-    var desesperacion, resurrect, grito, electedMov, debate, JdR, refugio, espera, reaccion, elJudio, sleep, elDebuff;
+    var desesperacion, grito, electedMov, debate, JdR, refugio, espera, reaccion, elJudio, sleep, elDebuff;
     var con, aRefugio, Acum, rRecuperado, falla, constru, llamada, cardistry;
 
     var noU = -1;
