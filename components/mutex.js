@@ -142,9 +142,14 @@ function turnEnd(){
                 if(miPersonaje == 2){
 
                     jugador1.stats.Vida += 50
+                    if(jugador1.stats.Vida > jugador1.stats.VidaMax) jugador1.stats.Vida = jugador1.stats.VidaMax;
 
-                }else jugador2.stats.Vida += 50;
-
+                }else {
+                
+                    jugador2.stats.Vida += 50;
+                    if(jugador2.stats.Vida > jugador2.stats.VidaMax) jugador2.stats.Vida = jugador2.stats.VidaMax;
+    
+                }
             }
 
         }
@@ -155,8 +160,14 @@ function turnEnd(){
             if(miPersonaje == 2){
 
                 jugador1.stats.Vida += 20
+                if(jugador1.stats.Vida > jugador1.stats.VidaMax) jugador1.stats.Vida = jugador1.stats.VidaMax;
 
-            }else jugador2.stats.Vida += 20;
+            }else {
+                
+                jugador2.stats.Vida += 20;
+                if(jugador2.stats.Vida > jugador2.stats.VidaMax) jugador2.stats.Vida = jugador2.stats.VidaMax;
+
+            }
             resurrect = 3;
 
         }
