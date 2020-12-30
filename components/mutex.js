@@ -41,11 +41,8 @@ function healtBars(){
     }
     if(cha2){
 
-        console.log(jugador2.stats.Vida);
-        console.log((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax);
-        if (aVida2 > ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)){console.log('cha2-'); aVida2--;}
-
-        else if (aVida2 < ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)){console.log('cha2+'); aVida2++;}
+        if (aVida2 > ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)) aVida2--;
+        else if (aVida2 < ((jugador2.stats.Vida * barWidht) / jugador2.stats.VidaMax)) aVida2++;
 
         if(((aVida2 * 100) / barWidht) > 45){
 
@@ -56,13 +53,11 @@ function healtBars(){
 
             line2 = healts.mid.line;
             fill2 = healts.mid.fill;
-            console.log('cha2m')
 
         }else{
 
             line2 = healts.low.line;
             fill2 = healts.low.fill;
-            console.log('cha2l')
 
         }
         animateHealtBars();
@@ -133,7 +128,8 @@ function turnEnd(){
 
     //"Resurrecion" y "Buena fe" de Di Nardo
     if((miPersonaje == 2 || suPersonaje == 2) && estatus == 4){
-
+        
+        console.log("yes");
         if(fe > 0){
 
             fe--;
@@ -175,6 +171,7 @@ function turnEnd(){
     }
     healtBars();
     estatus++;
+    console.log(status);
     if(estatus == 6) estatus = 0;
 
 }
