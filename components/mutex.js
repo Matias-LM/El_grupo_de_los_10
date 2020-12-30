@@ -127,7 +127,7 @@ function turnEnd(){
     }
 
     //"Resurrecion" y "Buena fe" de Di Nardo
-    if((miPersonaje == 2 || suPersonaje == 2) && estatus == 4){
+    if((miPersonaje == 2 || suPersonaje == 2) && (estatus == 4 || estatus == 5)){
 
         console.log("yes");
         if(fe > 0){
