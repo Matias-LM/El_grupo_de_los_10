@@ -129,7 +129,6 @@ function turnEnd(){
     //"Resurrecion" y "Buena fe" de Di Nardo
     if((miPersonaje == 2 || suPersonaje == 2) && (estatus == 4 || estatus == 5)){
 
-        console.log("yes");
         if(fe > 0){
 
             fe--;
@@ -153,13 +152,15 @@ function turnEnd(){
         resurrect--;
         if (resurrect == 0 && estatus == 5){
 
+            console.log("yes");
             if(miPersonaje == 2){
 
                 jugador1.stats.Vida += 20
                 if(jugador1.stats.Vida > jugador1.stats.VidaMax) jugador1.stats.Vida = jugador1.stats.VidaMax;
 
             }else {
-                
+
+                console.log("yes1");
                 jugador2.stats.Vida += 20;
                 if(jugador2.stats.Vida > jugador2.stats.VidaMax) jugador2.stats.Vida = jugador2.stats.VidaMax;
 
@@ -171,7 +172,6 @@ function turnEnd(){
     }
     healtBars();
     estatus++;
-    console.log(estatus);
     if(estatus == 6) {estatus = 0; tickEnd.stop();}
 
 }
