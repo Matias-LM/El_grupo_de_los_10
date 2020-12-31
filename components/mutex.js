@@ -14,7 +14,6 @@ function healtBars(){
 
     if(cha1){
 
-        console.log('cha1')
         if (aVida1 > ((jugador1.stats.Vida * barWidht) / jugador1.stats.VidaMax)) 
             aVida1--;
         else if (aVida1 < ((jugador1.stats.Vida * barWidht) / jugador1.stats.VidaMax)) 
@@ -150,6 +149,7 @@ function turnEnd(){
         }
 
         resurrect--;
+        console.log(resurrect);
         if (resurrect == 0 && estatus == 5){
 
             console.log("yes");
